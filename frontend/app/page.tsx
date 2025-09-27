@@ -8,13 +8,17 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 const navLinks = [
-  { name: 'Alocações', href: '#' },
-  { name: 'Projeção', href: '#' },
-  { name: 'Histórico', href: '#' },
+  { name: 'Alocações', href: 'Alocações' },
+  { name: 'Projeção', href: 'Projecoes' },
+  { name: 'Histórico', href: 'Histórico' },
 ];
 
 export default function Home() {
   const [ativo, setAtivo] = useState('Projecoes');
+
+  const handleClick = (href: string) => {
+    setAtivo(href);
+  };
   return (
     <div className="flex min-h-screen flex-col items-center pt-12 bg-[#101010] abeezee-regular">
       {/* Aqui define  o que vai aparecer no main */}
@@ -22,7 +26,12 @@ export default function Home() {
       <nav className="text-white abeezee-regular space-x-4">
         {navLinks.map((link) => {
           return (
-            <Button key={link.name} variant="link" className="text-white ">
+            <Button
+              key={link.name}
+              variant="link"
+              className={`text-white ${ativo === link.href ? 'text-muted-foreground' : ''}`}
+              onClick={() => handleClick(link.href)}
+            >
               {link.name}
             </Button>
           );
@@ -30,7 +39,7 @@ export default function Home() {
       </nav>
       {/* Aqui pelo state eu configuro o que aparece na pagina */}
       <main className="mt-11 px-6 w-full">
-        {ativo === 'Projecoes' && (
+        {ativo === 'Alocações' && (
           // Vou injetar a parte da page aqui
           <Alocacoes />
         )}

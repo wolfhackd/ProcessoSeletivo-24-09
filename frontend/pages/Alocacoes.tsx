@@ -14,7 +14,7 @@ export function Alocacoes() {
         <h2>Timeline de alocações manuais</h2>
         <div className="flex items-center gap-10">
           <FiltroAlocacoes />
-          <Button className="bg-[#CD5700] items-center">
+          <Button className="bg-[#CD5700] items-center rounded-full">
             <PlusIcon className="text-white size-4" /> Adicionar
           </Button>
         </div>
@@ -24,6 +24,7 @@ export function Alocacoes() {
         <div className="relative py-2 ">
           <div className="border-l-4 rounded-full border-muted-foreground left-4 h-full z-10 absolute" />
           {/* Lista de cards */}
+          {/* falta a versão de progresso */}
           <CardAlocacao />
           <CardAlocacao />
           <CardAlocacao />
