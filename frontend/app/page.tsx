@@ -3,6 +3,7 @@
 import { FiltroAlocacoes } from '@/components/FiltroAlocacoes';
 import { Button } from '@/components/ui/button';
 import { Alocacoes } from '@/pages/Alocacoes';
+import Projecao from '@/pages/Projecao';
 import { PlusIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -10,7 +11,7 @@ import { useState } from 'react';
 const navLinks = [
   { name: 'Alocações', href: 'Alocações' },
   { name: 'Projeção', href: 'Projecoes' },
-  { name: 'Histórico', href: 'Histórico' },
+  { name: 'Histórico', href: 'Historico' },
 ];
 
 export default function Home() {
@@ -39,10 +40,9 @@ export default function Home() {
       </nav>
       {/* Aqui pelo state eu configuro o que aparece na pagina */}
       <main className="mt-11 px-6 w-full">
-        {ativo === 'Alocações' && (
-          // Vou injetar a parte da page aqui
-          <Alocacoes />
-        )}
+        {ativo === 'Alocações' && <Alocacoes />}
+        {ativo === 'Projecoes' && <Projecao />}
+        {ativo === 'Historico' && <Alocacoes />}
       </main>
     </div>
   );

@@ -1,11 +1,15 @@
 'use client';
 
 import CardAlocacao from '@/components/CardAlocacao';
-import { FiltroAlocacoes } from '@/components/FiltroAlocacoes';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { AlertTriangleIcon, MoreVertical, PencilIcon, PlusIcon } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { PlusIcon } from 'lucide-react';
 
 export function Alocacoes() {
   return (
@@ -13,7 +17,19 @@ export function Alocacoes() {
       <div className="flex justify-between items-center">
         <h2>Timeline de alocações manuais</h2>
         <div className="flex items-center gap-10">
-          <FiltroAlocacoes />
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-white">Alocações:</span>
+            <Select defaultValue="todas">
+              <SelectTrigger className="w-[170px] rounded-full">
+                <SelectValue placeholder="Selecione" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#1B1B1B] text-white">
+                <SelectItem value="todas">Todas</SelectItem>
+                <SelectItem value="ativas">Ativas</SelectItem>
+                <SelectItem value="inativas">Inativas</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           <Button className="bg-[#CD5700] items-center rounded-full">
             <PlusIcon className="text-white size-4" /> Adicionar
           </Button>
