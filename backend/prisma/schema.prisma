@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -8,6 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Modelo principal da simulação
 model Simulation {
   id         Int      @id @default(autoincrement())
   name       String
