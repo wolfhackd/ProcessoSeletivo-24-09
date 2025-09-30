@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo principal da simulação
+model Simulation {
+  id         Int      @id @default(autoincrement())
+  name       String
+  startDate  DateTime
+  realRate   Float    @default(0.04)
+  status     String
+  isCurrent  Boolean  @default(false)
+  isLegacy   Boolean  @default(false)
+  originalId Int?
+  version    Int      @default(1)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relacionamentos
+  allocations Asset[]
+  movements   Movement[]
+  insurances  Insurance[]
+}
+
+model Asset {
+  id           Int    @id @default(autoincrement())
+  simulationId Int
+  name         String
+  assetType    String
+
+  records AssetRecord[]
+
+  simulation Simulation @relation(fields: [simulationId], references: [id])
+}
+
+model AssetRecord {
+  id             Int      @id @default(autoincrement())
+  assetId        Int
+  value          Float
+  date           DateTime
+  isFinanced     Boolean  @default(false)
+  financeDetails Json?
+
+  asset Asset @relation(fields: [assetId], references: [id])
+}
+
+model Movement {
+  id           Int       @id @default(autoincrement())
+  simulationId Int
+  type         String
+  description  String
+  value        Float
+  frequency    String
+  startDate    DateTime
+  endDate      DateTime?
+
+  simulation Simulation @relation(fields: [simulationId], references: [id])
+}
+
+model Insurance {
+  id             Int      @id @default(autoincrement())
+  simulationId   Int
+  name           String
+  startDate      DateTime
+  durationMonths Int
+  premium        Float
+  insuredValue   Float
+
+  simulation Simulation @relation(fields: [simulationId], references: [id])
+}

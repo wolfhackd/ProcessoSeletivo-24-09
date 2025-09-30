@@ -44,11 +44,11 @@ export type CreateAssetRequest = FastifyRequest<{
 }>;
 
 export type UpdateAssetRequest = FastifyRequest<{
-  Params: { id: string }; // ID do Asset
+  Params: { id: string };
   Body: z.infer<typeof updateAssetSchema>;
 }>;
 
 export type CreateAssetRecordRequest = FastifyRequest<{
-  Params: { id: string }; // ID do Asset
+  Params: { id: string };
   Body: z.infer<typeof createAssetRecordSchema>;
 }>;

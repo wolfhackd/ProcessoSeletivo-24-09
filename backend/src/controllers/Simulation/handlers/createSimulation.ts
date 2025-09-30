@@ -2,6 +2,7 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import { cloneSimulation } from './cloneSimulation';
 import { CreateSimulationPayload, createSimulationSchema } from '../simulation.schema';
 import prisma from '../../../prisma';
+import { ZodError } from 'zod';
 
 async function createCurrentStatus(originalSim: any, tx: any) {
   const currentStatusData = {
@@ -74,8 +75,11 @@ export const createSimulation = async (request: FastifyRequest, reply: FastifyRe
 
     return reply.status(201).send(newSimulation);
   } catch (err) {
-    if (err) {
-      return reply.status(400).send({ error: 'Dados de entrada inválidos.' });
+    if (err instanceof ZodError) {
+      return reply.status(400).send({
+        error: 'Dados de entrada inválidos.',
+        details: err.errors, // mostra quais campos falharam
+      });
     }
     console.error(err);
     return reply.status(500).send({ error: 'Erro ao criar a simulação.' });

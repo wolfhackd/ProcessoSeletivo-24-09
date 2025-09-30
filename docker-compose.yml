@@ -5,22 +5,19 @@ services:
       POSTGRES_USER: planner
       POSTGRES_PASSWORD: plannerpw
       POSTGRES_DB: plannerdb
+    ports:
+      - "5432:5432" # expõe a porta para o host
     volumes:
       - pg_data:/var/lib/postgresql/data
-
   backend:
     build: ./backend
+    container_name: planner_backend
     depends_on:
       - db
     environment:
       DATABASE_URL: postgresql://planner:plannerpw@db:5432/plannerdb
-
-  frontend:
-    build: ./frontend
-    depends_on:
-      - backend
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3333:3333"
 
 volumes:
   pg_data:
